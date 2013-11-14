@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+ENV['BUNDLER_GEMFILE'] = File.expand_path('../../Gemfile')
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require
+
+# require "rubygems"
+# gem 'sass'
+# require "sinatra"
+# require "haml"
+# require "launchy"
+
+# set :public_dir, '.'
+# set :views, '.'
+
+# get '/' do
+#   return haml :index if File.exist?('index.haml')
+#   return File.read('index.html') if File.exist?('index.html')
+#   404
+# end
+
+# get '/*.css' do |path|
+#   # content_type 'text/css'
+#   path = "#{path}.sass"
+#   return sass File.read(path) if File.exist? path
+#   404
+# end
+
+# if ARGV.empty?
+#   Launchy.open "http://localhost:4567"
+# else
+#   ARGV.each do |file|
+#     Launchy.open(File.join("http://localhost:4567", file))
+#   end
+# end
