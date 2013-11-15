@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Servatron::VERSION
   spec.authors       = ["Jared Grippe"]
   spec.email         = ["jared@deadlyicon.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Write a gem description}
+  spec.summary       = %q{Write a gem summary}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -18,6 +18,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_runtime_dependency 'shotgun'
+  spec.add_runtime_dependency 'slop'
   spec.add_runtime_dependency 'pry'
   spec.add_runtime_dependency 'pry-debugger'
 

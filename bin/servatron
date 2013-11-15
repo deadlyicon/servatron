@@ -1,9 +1,48 @@
 #!/usr/bin/env ruby
 
-ENV['BUNDLER_GEMFILE'] = File.expand_path('../../Gemfile')
-require 'rubygems'
-require 'bundler/setup'
-Bundler.require
+require 'pry'
+
+require 'servatron'
+
+options = Slop.parse strict: true, help: true do
+  banner 'Usage: servatron [options]'
+
+  command 'server' do
+
+    on 'port=', 'set the port of the server'
+    run do |options, args|
+      ENV['RACK_ENV'] ||= 'development'
+      config = File.expand_path('../../config.ru', __FILE__)
+
+      port = options[:port] || 3000
+
+      # options = {:Port => 9393, :Host => '127.0.0.1', :AccessLog => [], :Path => '/'}
+
+      if ENV['RACK_ENV'] == 'development'
+        require 'shotgun'
+        app = Shotgun::Loader.new(config)
+        Rack::Server.new(app: app, :Port => port).start
+      else
+        require 'rack'
+        Rack::Server.new(config: config, :Port => port).start
+      end
+      exit
+    end
+  end
+
+  command 'console' do
+    run do |options, args|
+      Pry.start Servatron
+      exit
+    end
+  end
+
+end
+
+# default start deamon
+
+puts options
+exit
 
 # require "rubygems"
 # gem 'sass'
