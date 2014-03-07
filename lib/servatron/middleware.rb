@@ -1,18 +1,19 @@
 require 'rack'
+require 'rack/file'
+require 'servatron/controller'
 
 class Servatron::Middleware
 
   def initialize app, options={}
     @app, @options = app, options
+    options[:root] ||= Bundler.root
+    @controller = Servatron::Controller.new(options)
   end
 
   def call env
-
-    body = Bundler.root.to_s
-
-    body << "\n\n ehddddd?"
-
-    [200, {}, [body]]
+    @controller.call(env)
   end
 
 end
+
+require 'pry-debugger'

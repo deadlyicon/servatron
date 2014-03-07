@@ -1,29 +1,33 @@
 # Servatron
 
-Write a gem description
+The simplist way to build a ruby web app
 
-## Installation
 
-Add this line to your application's Gemfile:
 
-    gem 'servatron'
+```sh
+.
+├── index.rb
+└── lib
 
-And then execute:
+```
 
-    $ bundle
 
-Or install it yourself as:
 
-    $ gem install servatron
+- we never serve `.rb` files
+- we never serve files that start with `_`
 
-## Usage
 
-Write usage instructions here
 
-## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+
+# Default Configuration
+
+```ruby
+  {
+    ignored_extensions: %w{ rb },
+    ignored_paths: %w{ lib bin },
+    lib_path: 'lib',
+    bin_path: 'bin',
+    load_paths: %w{ lib },
+  }
+```

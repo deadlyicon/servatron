@@ -1,8 +1,7 @@
 require 'servatron/middleware'
 
-app = Rack::Builder.app do
-  use Servatron::Middleware
-  run ->{ [404, {}, []] }
-end
-
-run app
+use Rack::CommonLogger, STDERR
+use Rack::ShowExceptions
+use Rack::Lint
+use Servatron::Middleware
+run -> env { [404, {}, [ %(#{env["PATH_INFO"]} not found) ] ] }
