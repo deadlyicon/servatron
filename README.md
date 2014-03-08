@@ -25,7 +25,7 @@ The simplist way to build a ruby web app
 ```ruby
   {
     ignored_extensions: %w{ rb },
-    ignored_paths: %w{ lib bin },
+    ignored_paths: %w{ lib bin Gemfile Gemfile.lock },
     lib_path: 'lib',
     bin_path: 'bin',
     load_paths: %w{ lib },

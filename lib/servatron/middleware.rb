@@ -6,11 +6,13 @@ class Servatron::Middleware
 
   def initialize app, options={}
     @app, @options = app, options
-    options[:root] ||= Bundler.root
-    @controller = Servatron::Controller.new(options)
+    # options[:root] ||= Bundler.root
+    # @controller = Servatron::Controller.new(options)
   end
 
   def call env
+    controller = Servatron::Controller.new(env)
+    controller.
     @controller.call(env)
   end
 
