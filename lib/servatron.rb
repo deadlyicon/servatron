@@ -1,25 +1,36 @@
 require "servatron/version"
 
-module Servatron
+# Servatron.new({}).middleware
+# Servatron.new({}).start
+class Servatron
 
   autoload :Path,          'servatron/path'
   autoload :Configuration, 'servatron/configuration'
   autoload :CLI,           'servatron/cli'
+  autoload :Middleware,    'servatron/middleware'
   autoload :Server,        'servatron/server'
   autoload :Controllers,   'servatron/controllers'
   autoload :Controller,    'servatron/controller'
-  # autoload :Middleware,    'servatron/middleware'
 
-  def self.start options={}
-    Servatron::Server.new(options).start
+  def initialize options={}
+    @options = options.dup.freeze
+  end
+  attr_reader :options
+
+  def middleware
+    @middleware ||= Servatron::Middleware.new(self)
   end
 
-  def self.available_port
-    server = TCPServer.new('127.0.0.1', 0)
-    server.addr[1]
-  ensure
-    server.close if server
+  def start
+    Servatron::Server.new(self).start
   end
 
+  def port
+    @port ||= options[:port] || 3000
+  end
+
+  def app_root
+    @app_root ||= Servatron::Path.new(options[:app_root] || Bundler.root)
+  end
 
 end

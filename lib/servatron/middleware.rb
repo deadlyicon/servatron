@@ -1,21 +1,14 @@
 require 'rack'
-require 'rack/file'
-require 'servatron/controller'
 
-class Servatron::Middleware
+module Servatron::Middleware
 
-  def initialize app, options={}
-    @app, @options = app, options
-    # options[:root] ||= Bundler.root
-    # @controller = Servatron::Controller.new(options)
-  end
-
-  def call env
-    controller = Servatron::Controller.new(env)
-    controller.
-    @controller.call(env)
+  def self.new servatron
+    Rack::Builder.new do
+      use Rack::CommonLogger, STDERR
+      use Rack::ShowExceptions
+      use Rack::Lint
+      use Servatron::Controllers, servatron
+    end
   end
 
 end
-
-require 'pry-debugger'

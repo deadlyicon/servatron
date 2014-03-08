@@ -1,26 +1,20 @@
-require 'pathname'
 require 'rack'
 
 class Servatron::Server
 
-  def initialize options={}
-    @configuration ||= Servatron::Configuration.new(options)
-  end
-  attr_reader :configuration
-
-  def app
-    configuration = @configuration
-    @app ||= Rack::Builder.new do
+  def initialize servatron
+    @servatron = servatron
+    @app = Rack::Builder.new do
       use Rack::CommonLogger, STDERR
       use Rack::ShowExceptions
       use Rack::Lint
-      use Servatron::Controllers, configuration
+      use Servatron::Controllers, servatron
       run -> env { [404, {}, [ %(#{env["PATH_INFO"]} not found) ] ] }
     end
   end
 
   def start
-    Rack::Server.new(app: app, :Port => configuration.port).start
+    Rack::Server.new(app: @app, :Port => @servatron.port).start
   end
 
 end

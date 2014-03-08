@@ -11,7 +11,7 @@ class Servatron::CLI
         on 'port=', 'set the port of the server'
         on 'app_root=', 'the root directory of your app'
         run do |options, args|
-          Servatron.start(options.to_hash)
+          Servatron.new(options.to_hash).start
           exit
         end
       end
