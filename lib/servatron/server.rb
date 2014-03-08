@@ -14,7 +14,7 @@ class Servatron::Server
       use Rack::ShowExceptions
       use Rack::Lint
       use Servatron::Controllers, application
-      use Rack::Static, :root => application.root.to_s, :urls => ["/"]
+      use Servatron::Static,      application
       run -> env { [404, {}, [ %(#{env["PATH_INFO"]} not found) ] ] }
     end
   end
