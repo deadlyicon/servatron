@@ -6,21 +6,7 @@ class Servatron::Controllers
   end
 
   def call env
-    controller = Servatron::Controller.new(@servatron, env)
-    if controller.exist?
-      controller.response
-    else
-      @app.call(env)
-    end
-
-
-    # controller =
-    # controller.
-    # @controller.call(env)
-  end
-
-  def find_controllers!
-
+    Servatron::Controller.call(@servatron, env) || @app.call(env)
   end
 
 end
