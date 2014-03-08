@@ -1,12 +1,12 @@
 
 class Servatron::Controllers
 
-  def initialize app, configuration
-    @app, @configuration = app, configuration
+  def initialize app, servatron
+    @app, @servatron = app, servatron
   end
 
   def call env
-    controller = Servatron::Controller.new(@configuration, env)
+    controller = Servatron::Controller.new(@servatron, env)
     if controller.exist?
       controller.response
     else

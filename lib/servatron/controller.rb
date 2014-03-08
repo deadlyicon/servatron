@@ -1,16 +1,16 @@
 class Servatron::Controller
 
-  def initialize configuration, env
-    @configuration = configuration
+  def initialize application, env
+    @application = application
     @request = Rack::Request.new(env)
   end
-  attr_reader :request
+  attr_reader :application, :request
 
   def possible_controller_paths
     path = request.path[1..-1]
     [
-      @configuration.app_root.join("#{path}/index.rb"),
-      @configuration.app_root.join("#{path}.rb"),
+      application.root.join("#{path}/index.rb"),
+      application.root.join("#{path}.rb"),
     ]
   end
 
